@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity; 
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace StoreApp
         private void LoadCategories()
         {
             SearchCategory.ItemsSource = context.Categories.ToList();
+            SearchCategory.DisplayMemberPath = "Name"; 
+            SearchCategory.SelectedValuePath = "Category"; 
         }
 
         private void SearchProducts_Click(object sender, RoutedEventArgs e)
@@ -39,17 +42,22 @@ namespace StoreApp
             {
                 var query = context.Products.Include(p => p.Category1).AsQueryable();
 
-                // Поиск по названию (игнорируем placeholder текст)
+                // Поиск по названию 
                 if (!string.IsNullOrWhiteSpace(SearchText.Text) && SearchText.Text != "Введите название...")
                 {
-                    query = query.Where(p => p.Name.Contains(SearchText.Text));
+                    string searchText = SearchText.Text.Trim();
+                    query = query.Where(p => p.Name.Contains(searchText));
                 }
 
-                // Поиск по категории
+                // Поиск по категории 
                 if (SearchCategory.SelectedItem != null)
                 {
                     var selectedCategory = SearchCategory.SelectedItem as Category;
-                    query = query.Where(p => p.Category1.CategoryID == selectedCategory.CategoryID);
+                    if (selectedCategory != null)
+                    {
+                        int categoryId = selectedCategory.CategoryID;
+                        query = query.Where(p => p.Category1.CategoryID == categoryId);
+                    }
                 }
 
 
