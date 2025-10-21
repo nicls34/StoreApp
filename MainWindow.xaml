@@ -6,5 +6,20 @@
         xmlns:local="clr-namespace:StoreApp"
         mc:Ignorable="d"
           Title="Система учёта товаров" Height="600" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!-- Панель навигации -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightBlue" Height="40">
+            <Button Content="📦 Товары" Click="ShowProducts_Click" Margin="10,5" Padding="10,2"/>
+            <Button Content="📊 Статистика" Click="ShowStatistics_Click" Margin="10,5" Padding="10,2"/>
+            <Button Content="🔍 Поиск" Click="ShowSearch_Click" Margin="10,5" Padding="10,2"/>
+        </StackPanel>
+
+        <!-- Контентная область -->
+        <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
 </Window>
