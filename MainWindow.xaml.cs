@@ -23,6 +23,22 @@ namespace StoreApp
         public MainWindow()
         {
             InitializeComponent();
+            ShowProducts_Click(null, null); // Показываем товары по умолчанию
+        }
+
+        private void ShowProducts_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ProductsPage());
+        }
+
+        private void ShowStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new StatisticsPage());
+        }
+
+        private void ShowSearch_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new SearchPage());
         }
     }
 }
